@@ -26,7 +26,7 @@ module Flo
         assert subject.update_issue(number: '1234', assignee: 'new_user').success?
       end
 
-      def test_add_labels_to_an_issue_is_successfule
+      def test_add_labels_to_an_issue_is_successful
         client.expect(:add_labels_to_an_issue, [OpenStruct.new(name: 'new label')], parameters + [['new label']])
         assert subject.add_labels_to_an_issue(number: '1234', labels: ['new label']).success?
       end

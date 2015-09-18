@@ -24,6 +24,11 @@ module Flo
         OpenStruct.new(success?: true)
       end
 
+      def issue(opts={})
+        options = {repo: @repo}.merge(opts)
+        @client.issue(options[:repo], options[:number])
+      end
+
     end
   end
 end
