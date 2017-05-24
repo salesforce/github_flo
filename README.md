@@ -1,8 +1,7 @@
 # GithubFlo
+[![Gem Version](https://badge.fury.io/rb/github_flo.svg)](https://badge.fury.io/rb/github_flo) [![Code Climate](https://codeclimate.com/github/salesforce/github_flo/badges/gpa.svg)](https://codeclimate.com/github/salesforce/github_flo) [![Build Status](https://semaphoreci.com/api/v1/justinpowers/github_flo/branches/master/shields_badge.svg)](https://semaphoreci.com/justinpowers/github_flo)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/github_flo`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+GithubFlo is a Salesforce plugin for the Flo workflow automation library.  If you aren't familiar with Flo, then please start [here](https://github.com/salesforce/flo)
 
 ## Installation
 
@@ -20,19 +19,39 @@ Or install it yourself as:
 
     $ gem install github_flo
 
+## Configuration
+
+In your Flo configuration file, configure salesforce inside the `config` block
+
+```ruby
+config do |cfg|
+  cfg.provider :github_flo, { user: ENV['OCTOKIT_TEST_USER'], token: ENV['OCTOKIT_TEST_TOKEN'], repo: 'salesforce/github_flo' }
+end
+```
+
+See the [Octokit gem](https://github.com/octokit/octokit.rb#authentication) for information on setting up the client.
+
 ## Usage
 
-TODO: Write usage instructions here
+Specify the commands you wish to run in the `register_command` block.  For example
+```ruby
+# Updates a github issue
+perform :github_flo, :update_issue, { number: number, assignee: assignee }
 
-## Development
+# Adds a label to an issue
+perform :github_flo, :add_labels_to_an_issue, { number: number, labels: ["Work in progress"] }
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# Idempotently creates a pull request 
+perform :github_flo, :create_pull_request, { base: 'master', branch: "issues/#{number}", title: "Fixes #{number}", body: 'Some important details' }
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/github_flo. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+1. Fork it (http://github.com/your-github-username/github_flo/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 
 ## License
