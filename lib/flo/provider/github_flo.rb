@@ -65,6 +65,26 @@ module Flo
         @client.issue(options[:repo], options[:number])
       end
 
+      # Creates a Github pull request
+      #
+      # @option opts [String] base ('master') The base branch for the pull request
+      # @option opts [String] head The head containing the new changes
+      # @option opts [String] Title The title for the pull request
+      # @option opts [String] Body The body of the pull request
+      #
+      # Remaining options will be passed to octokit.  See octokit's documentation for updating issues
+      #
+      def create_pull_request(opts={})
+        repo = opts[:repo] || @repo
+        @client.create_pull_request(
+                                    repo,
+                                    opts.delete(:base),
+                                    opts.delete(:head),
+                                    opts.delete(:title),
+                                    opts.delete(:body)
+                                    )
+        OpenStruct.new(success?: true)
+      end
     end
   end
 end

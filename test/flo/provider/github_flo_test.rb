@@ -35,6 +35,11 @@ module Flo
         client.expect(:add_labels_to_an_issue, [OpenStruct.new(name: 'new label')], parameters + [['new label']])
         assert subject.add_labels_to_an_issue(number: '1234', labels: ['new label']).success?
       end
+
+      def test_create_pull_request_is_successful
+        client.expect(:create_pull_request, true, ['example/repository', 'example_base', 'example_head', 'example_title', 'example_body'])
+        assert subject.create_pull_request(base: 'example_base', head: 'example_head', title: 'example_title', body: 'example_body').success?
+      end
     end
   end
 end
