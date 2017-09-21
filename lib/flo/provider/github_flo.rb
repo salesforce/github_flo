@@ -4,10 +4,11 @@
 # For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 
 require 'octokit'
+require 'flo/provider/base'
 
 module Flo
   module Provider
-    class GithubFlo
+    class GithubFlo < Flo::Provider::Base
 
       # Creates a new GithubFlo Provider instance
       #
