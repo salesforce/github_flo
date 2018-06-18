@@ -26,6 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "pry"
 
-  spec.add_dependency 'octokit', '~> 4.0.1'
+  spec.add_dependency 'octokit', '~> 4.6.0'
   spec.add_dependency 'flo', '>= 0.0.3'
 end
